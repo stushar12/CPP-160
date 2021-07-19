@@ -3,20 +3,21 @@ using namespace std;
 # define N 1000
 vector<int> gr[N];
 int n = 36;
-// Function to add edge
+
+
 void Add_edge(int x, int y)
 {
 	gr[x].push_back(y);
 }
 
 
-map<int,int> bfs(int source,int destination,int parent[])
+map<int,int> bfs(int source,int parent[])
 {	
     parent[source]=source;
     map<int,int> distance;
     for(int i=0;i<=n;i++)
     {
-        distance.insert({i,INT_MAX});
+        distance[i]=-1;
     }
     distance[source]=0;
 
@@ -29,7 +30,7 @@ map<int,int> bfs(int source,int destination,int parent[])
         q.pop();
         for(int x: gr[node])
         {
-            if(distance[x]==INT_MAX)
+            if(distance[x]==-1)
             {
                 q.push(x);
                 parent[x]=node;
@@ -75,7 +76,7 @@ Add_edge(36,36);
 
 int source=0;
 int destination=36;
-distance=bfs(source,destination,parent);
+distance=bfs(source,parent);
 
 cout<<"Distance between source  "<<source<<" and destination "<<destination <<" is : "<<distance[destination]<<endl;
 cout<<"Path is: ";
